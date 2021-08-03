@@ -5,6 +5,8 @@ const pscore = document.querySelector('.score.current')
 const precord = document.querySelector('.score.record')
 const sizes = [40,70,110]
 const minBottom = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--min-bottom').replace('px','').replace(' ',''))
+const startBtn = document.querySelector('button.start')
+const pressSpace = document.querySelector('p.press-space')
 let animation = 1
 let duration = 550
 let canJump = true
@@ -17,6 +19,13 @@ let score = 0
 let record = localStorage.getItem('record') || 0
 precord.innerText = `Record: ${record}`
 let walkInterval
+let canStart = false
+
+startBtn.onclick = () => {
+    startBtn.style.display = 'none'
+    canStart = true
+    pressSpace.style.display = 'block'
+}
 
 function jump(){
     dino.style.animation = `jump${animation} ${duration}ms ease-in-out`
@@ -25,7 +34,7 @@ function jump(){
 }
 
 document.addEventListener('keydown', (e) => {
-    if(e.code != 'Space' || gameOver) return
+    if(e.code != 'Space' || gameOver || !canStart) return
     if(canJump){
         canJump = false
         jump()
@@ -41,11 +50,12 @@ document.addEventListener('keydown', (e) => {
         startCounter()
         dino.classList.add('walk2')
         startWalkAnimation()
+        pressSpace.style.display = 'none'
     }
 })
 
 document.addEventListener('touchstart', (e) => {
-    if(gameOver) return
+    if(gameOver || !canStart) return
     if(canJump){
         canJump = false
         jump()
@@ -61,6 +71,8 @@ document.addEventListener('touchstart', (e) => {
         startCounter()
         dino.classList.add('walk2')
         startWalkAnimation()
+        pressSpace.style.display = 'none'
+
     }
 }, false)
 
