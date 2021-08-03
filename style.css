@@ -22,13 +22,23 @@ body{
 }
 
 .game{
-    width: 100%;
-    max-width: 900px;
+    width: 900px;
     height: 400px;
     border: 2px solid white;
     border-radius: 20px;
     position: relative;
     overflow: hidden;
+}
+
+@media(max-width: 900px){
+    .game{
+        transform: scale(0.5);
+    }
+}
+@media(max-width: 450px){
+    .game{
+        transform: scale(0.3);
+    }
 }
 
 .floor{
@@ -44,11 +54,21 @@ body{
     position: absolute;
     bottom: var(--min-bottom);
     left: 50px;
-    width: 55px;
+    width: 70px;
     height: 80px;
-    background-color: hsl(0,0%,100%);
+    /* background-color: hsl(0,0%,60%); */
+    background-image: url(assets/dino_idle.png);
+    background-size: cover;
+    background-repeat: no-repeat;
     /* animation: jump1 0.7s ease-in-out; */
     z-index: 1;
+}
+
+.dino.walk1{
+    background-image: url(assets/dino_walk1.png);
+}
+.dino.walk2{
+    background-image: url(assets/dino_walk2.png);
 }
 
 .cactus{
@@ -57,8 +77,23 @@ body{
     right: calc(var(--cactus-width) * -1);
     width: var(--cactus-width);
     height: 60px;
-    background-color: hsl(0,0%,75%);
+    /* background-color: hsl(0,0%,50%); */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
     /* animation: moveLeft 3s linear infinite; */
+}
+
+.cactus[style*="--cactus-width: 40px;"]{
+    background-image: url(assets/cactus1.png);
+}
+
+.cactus[style*="--cactus-width: 70px;"]{
+    background-image: url(assets/cactus2.png);
+}
+
+.cactus[style*="--cactus-width: 110px;"]{
+    background-image: url(assets/cactus3.png);
 }
 
 .score{
